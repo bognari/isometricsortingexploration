@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl2y3u8sys7wa"]
+
+[ext_resource type="Script" path="res://iso_sorting_manager.gd" id="1_qk74l"]
+
+[node name="IsoSortingManager" type="Node"]
+script = ExtResource("1_qk74l")

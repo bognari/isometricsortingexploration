@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://do2gsfkabhpqo"]
+
+[ext_resource type="Script" path="res://camera_2d.gd" id="1_3txa8"]
+[ext_resource type="PackedScene" uid="uid://cbc5da3to1qoj" path="res://IsoContainer.tscn" id="1_fgn27"]
+[ext_resource type="Script" path="res://iso_sorting_manager.gd" id="1_pr63q"]
+[ext_resource type="Texture2D" uid="uid://c7h7odyx2fbbd" path="res://theTree.png" id="2_6tro4"]
+[ext_resource type="Texture2D" uid="uid://cc7dye5hy3iax" path="res://Player_Idle.png" id="3_5c7a4"]
+[ext_resource type="Texture2D" uid="uid://bdbn8psobjuqs" path="res://BrickWall2.png" id="4_4h7bv"]
+[ext_resource type="Texture2D" uid="uid://dgxcauqqpc0y" path="res://BrickWall.png" id="5_k7whv"]
+[ext_resource type="Script" path="res://player.gd" id="6_l6tdr"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_3txa8")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Tree1" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(23, -18)
+points_offsets = Array[Vector2]([Vector2(0, 34)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Tree1"]
+texture = ExtResource("2_6tro4")
+
+[node name="Block4" parent="World" instance=ExtResource("1_fgn27")]
+points_offsets = Array[Vector2]([Vector2(-28, 16), Vector2(28, -1)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Block4"]
+texture = ExtResource("4_4h7bv")
+
+[node name="Block2" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(-19, 11)
+points_offsets = Array[Vector2]([Vector2(-28, -1), Vector2(28, 17)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Block2"]
+texture = ExtResource("5_k7whv")
+
+[node name="Tree2" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(-27, -59)
+points_offsets = Array[Vector2]([Vector2(0, 34)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Tree2"]
+texture = ExtResource("2_6tro4")
+
+[node name="Tree4" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(-98, -69)
+points_offsets = Array[Vector2]([Vector2(0, 34)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Tree4"]
+texture = ExtResource("2_6tro4")
+
+[node name="Tree5" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(-69, -65)
+points_offsets = Array[Vector2]([Vector2(0, 34)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Tree5"]
+texture = ExtResource("2_6tro4")
+
+[node name="Tree6" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(-181, -49)
+points_offsets = Array[Vector2]([Vector2(0, 34)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Tree6"]
+texture = ExtResource("2_6tro4")
+
+[node name="Block3" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(-108, 3)
+points_offsets = Array[Vector2]([Vector2(-28, 16), Vector2(28, -1)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Block3"]
+texture = ExtResource("4_4h7bv")
+
+[node name="Block" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(-109, 9)
+points_offsets = Array[Vector2]([Vector2(-28, -1), Vector2(28, 17)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Block"]
+texture = ExtResource("5_k7whv")
+
+[node name="Tree3" parent="World" instance=ExtResource("1_fgn27")]
+position = Vector2(-138, -45)
+points_offsets = Array[Vector2]([Vector2(0, 34)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Tree3"]
+texture = ExtResource("2_6tro4")
+
+[node name="Player" type="CharacterBody2D" parent="World"]
+script = ExtResource("6_l6tdr")
+
+[node name="Player" parent="World/Player" instance=ExtResource("1_fgn27")]
+position = Vector2(-82, -47)
+is_movable = true
+points_offsets = Array[Vector2]([Vector2(0, 20)])
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Player/Player"]
+texture = ExtResource("3_5c7a4")
+
+[node name="IsoSpriteSortingManager" type="Node" parent="."]
+script = ExtResource("1_pr63q")

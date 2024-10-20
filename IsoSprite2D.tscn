@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://2hik1a2di2bf"]
+
+[ext_resource type="Script" path="res://iso_container.gd" id="1_iwev7"]
+
+[node name="IsoContainer" type="Sprite2D"]
+z_index = 10
+script = ExtResource("1_iwev7")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_tree_changed"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_tree_changed"]

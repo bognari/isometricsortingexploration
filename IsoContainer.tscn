@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbc5da3to1qoj"]
+
+[ext_resource type="Script" path="res://iso_container.gd" id="1_rqy5a"]
+
+[node name="IsoContainer" type="Node2D"]
+script = ExtResource("1_rqy5a")
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="BoundingBox" type="Line2D" parent="."]
+
+[connection signal="child_entered_tree" from="." to="." method="_on_tree_changed"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_tree_changed"]
