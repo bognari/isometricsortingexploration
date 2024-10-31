@@ -4,3 +4,5 @@
 
 [node name="IsoSortingManager" type="Node"]
 script = ExtResource("1_qk74l")
+
+[node name="BoundingBox" type="Line2D" parent="."]

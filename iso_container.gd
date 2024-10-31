@@ -26,6 +26,7 @@ class Segment:
 
 @export var debug: bool = true
 @onready var marker_container = $"Markers"
+@onready var bounding_box = $"./BoundingBox"
 
 @export var force_sort: bool = true
 
@@ -53,6 +54,7 @@ var _segments: Array[Segment] = []
 var _static_sprites: Array[Sprite2D] = []
 var _animated_sprites: Array[AnimatedSprite2D] = []
 var cached_bounds: Rect2
+var cached_local_bounds: Rect2
 var _last_refreshed_frame: int = 0
 
 var _visible_static_dependencies: Array[IsoContainer] = []
@@ -146,7 +148,8 @@ func refresh_cache():
 	_old_scale = scale
 	sprite_changed = false
 	if _static_sprites.size() > 0 or _animated_sprites.size() > 0:
-		cached_bounds = _static_sprites[0].get_rect() if _static_sprites.size() > 0 else _animated_sprites[0].get_rect()
+		cached_local_bounds = _static_sprites[0].get_rect() if _static_sprites.size() > 0 else _animated_sprites[0].get_rect()
+		cached_bounds = Rect2(to_global(cached_local_bounds.position), cached_local_bounds.size)
 		var pos = global_position
 		_points.clear()
 		for offset in points_offsets:
@@ -156,16 +159,15 @@ func refresh_cache():
 			_segments.append(Segment.gen(_points[i], _points[i + 1]))
 		_last_refreshed_frame = Engine.get_frames_drawn()
 		if debug:
-			var boundingBox: Line2D = $"BoundingBox"
-			boundingBox.clear_points()
-			boundingBox.width = 2
-			boundingBox.z_index = 15
-			boundingBox.default_color = Color(0, 0, 1)
-			boundingBox.add_point(cached_bounds.position)
-			boundingBox.add_point(cached_bounds.position + Vector2(cached_bounds.size.x, 0))
-			boundingBox.add_point(cached_bounds.position + cached_bounds.size)
-			boundingBox.add_point(cached_bounds.position + Vector2(0, cached_bounds.size.y))
-			boundingBox.closed = true
+			bounding_box.clear_points()
+			bounding_box.width = 2
+			bounding_box.z_index = 1000
+			bounding_box.default_color = Color(0, 0, 1)
+			bounding_box.add_point(cached_local_bounds.position)
+			bounding_box.add_point(cached_local_bounds.position + Vector2(cached_local_bounds.size.x, 0))
+			bounding_box.add_point(cached_local_bounds.position + cached_local_bounds.size)
+			bounding_box.add_point(cached_local_bounds.position + Vector2(0, cached_local_bounds.size.y))
+			bounding_box.closed = true
 
 static func signum(x: float)-> int:
 	if x > 0:

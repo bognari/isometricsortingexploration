@@ -8,6 +8,8 @@ var moveable_sprite_list: Array[IsoContainer] = []
 var currently_visible_moveable_sprite_list: Array[IsoContainer] = []
 
 @onready var camera: Camera2D = $"/root/Game/Camera2D"
+@export var debug: bool = true
+@onready var bounding_box: Line2D = $"BoundingBox"
 
 func _ready():
 	pass
@@ -130,6 +132,18 @@ func filter_list_by_visibility(full_list: Array[IsoContainer], destination_list:
 	if camera:
 		var camera_pos = camera.global_position
 		var camera_bounds = Rect2(camera_pos.x - SORT_RANGE, camera_pos.y - SORT_RANGE, SORT_RANGE * 2, SORT_RANGE * 2)
+		
+		if debug:
+			bounding_box.clear_points()
+			bounding_box.width = 2
+			bounding_box.z_index = 10
+			bounding_box.default_color = Color(0, 1, 0)
+			bounding_box.add_point(camera_bounds.position)
+			bounding_box.add_point(camera_bounds.position + Vector2(camera_bounds.size.x, 0))
+			bounding_box.add_point(camera_bounds.position + camera_bounds.size)
+			bounding_box.add_point(camera_bounds.position + Vector2(0, camera_bounds.size.y))
+			bounding_box.closed = true
+		
 		for sprite in full_list:
 			if sprite.force_sort:
 				destination_list.append(sprite)
